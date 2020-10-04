@@ -1,0 +1,6 @@
+{"type":"Metric","data":{"name":"vus","type":"gauge","contains":"default","tainted":null,"thresholds":[],"submetrics":null,"sub":{"name":"","parent":"","suffix":"","tags":null}},"metric":"vus"}
+{"type":"Point","data":{"time":"2020-05-18T15:17:07.164279+05:30","value":0,"tags":null},"metric":"vus"}
+{"type":"Metric","data":{"name":"vus_max","type":"gauge","contains":"default","tainted":null,"thresholds":[],"submetrics":null,"sub":{"name":"","parent":"","suffix":"","tags":null}},"metric":"vus_max"}
+{"type":"Point","data":{"time":"2020-05-18T15:17:07.164279+05:30","value":0,"tags":null},"metric":"vus_max"}
+{"type":"Point","data":{"time":"2020-05-18T15:17:07.225839+05:30","value":0,"tags":null},"metric":"vus"}
+{"type":"Point","data":{"time":"2020-05-18T15:17:07.225839+05:30","value":0,"tags":null},"metric":"vus_max"}

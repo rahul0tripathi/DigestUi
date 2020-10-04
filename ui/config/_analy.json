@@ -1,0 +1,209 @@
+{
+    "version": 0,
+    "local_threshold": 1,
+    "params": {
+        "game": "GAME_ANALYTICS",
+        "user": "USER_ANALYTICS",
+        "issue": "ISSUE_ANALYTICS",
+        "transaction": "TRANSACTION_ANALYTICS",
+        "app": "APP_ANALYTICS"
+    },
+    "properties": {
+        "USER_ANALYTICS": {
+            "active_users": {
+                "unique": true
+            },
+            "new_users": {
+                "unique": true
+            },
+            "referrals_gen": {
+                "unique": true
+            }
+        },
+        "ISSUE_ANALYTICS": {
+            "issue_raised_arr": {
+                "unique": true
+            }
+        },
+        "GAME_ANALYTICS": {
+            "2fb9ab46-1b66-4ed7-a6ff-22e0f36616e8._gcashw": {
+                "add": true
+            }
+        }
+    },
+    "rules": {
+        "GAME_ANALYTICS": [{
+                "_target": ["*._gbpw", "*._gcashw"],
+                "subProp": "true",
+                "_hook": {
+                    "from": "func",
+                    "identifier": "*",
+                    "property_target": "gameId"
+                },
+                "_collector": {
+                    "*._gbpw": {
+                        "condition": {
+                            "==": ["currencyType", "battlePoints"]
+                        },
+                        "type": "slug",
+
+                        "value": "winningAmount"
+                    },
+                    "*._gcashw": {
+                        "condition": {
+                            "==": ["currencyType", "cash"]
+                        },
+                        "type": "slug",
+
+                        "value": "winningAmount"
+                    }
+                }
+            }, {
+                "_target": "*._gplay",
+                "subProp": "true",
+                "_hook": {
+                    "from": "func",
+                    "identifier": "*",
+                    "property_target": "gameId"
+                },
+                "_collector": {
+                    "type": "slug"
+                }
+            },
+            {
+                "_target": "games_played",
+                "_hook": {
+                    "from": "func",
+                    "identifier": "*"
+                },
+                "_collector": {
+                    "type": "slug"
+                }
+            }
+        ],
+        "USER_ANALYTICS": [{
+            "_target": "active_users",
+            "_hook": {
+                "from": "func",
+                "identifier": "active_user"
+            },
+            "_collector": {
+                "type":"slug",
+                "value":"id"
+            }
+        }],
+        "ISSUE_ANALYTICS": [{
+            "_target": ["issue_raised", "issue_inProgress"],
+            "_hook": {
+                "from": "func",
+                "identifier": "raisedIssue"
+            },
+            "_collector": {
+                "issue_raised": {
+                    "type": "slug",
+                    "value": "id"
+                }
+            }
+        },{
+            "_target":"issue_fixed",
+            "_hook":{
+                "from":"func",
+                "identifier":"issue_fixed"
+            },
+            "_collector":{
+                "condition":{
+                    "==":["status","resolved"]
+                }
+            }
+        }],
+        "TRANSACTION_ANALYTICS": [{
+            "_target": [ "tpayout", "tcashs","tbps"],
+            "_hook": {
+                "from": "func",
+                "identifier": "spendAnalytics"
+            },
+            "_collector": {
+                "tpayout": {
+                    "condition": {
+                        "==": ["mode","Razorpay"]
+                    },
+                    "type": "slug",
+                    "value": "amount"
+                },
+                "tcashs":{
+                    "condition":{
+                        "==":["currencyType","cash"]
+                    },
+                    "type":"slug",
+                    "value":"amount"
+                },
+                "tbps":{
+                    "condition":{
+                        "==":["currencyType","battlePoints"]
+                    },
+                    "type":"slug",
+                    "value":"amount"
+                }
+            }
+        },{
+            "_target": [ "tdeposit", "tcashw","tbpw"],
+            "_hook": {
+                "from": "func",
+                "identifier": "wonAnalytics"
+            },
+            "_collector": {
+                "tpayout": {
+                    "condition": {
+                        "==": ["mode","Razorpay"]
+                    },
+                    "type": "slug",
+                    "value": "amount"
+                },
+                "tcashs":{
+                    "condition":{
+                        "==":["currencyType","cash"]
+                    },
+                    "type":"slug",
+                    "value":"amount"
+                },
+                "tbps":{
+                    "condition":{
+                        "==":["currencyType","battlePoints"]
+                    },
+                    "type":"slug",
+                    "value":"amount"
+                }
+            }
+        }],
+        "APP_ANALYTICS": []
+
+    },
+    "data": {
+        "GAME_ANALYTICS": {
+            "games_played": 0
+        },
+        "USER_ANALYTICS": {
+            "active_users":[],
+            "new_users": [],
+            "referrals_gen": []
+        },
+        "ISSUE_ANALYTICS": {
+            "issue_raised": [],
+            "issue_inProgress": 0,
+            "issue_fixed": 0,
+            "issue_requested": 0
+        },
+        "TRANSACTION_ANALYTICS": {
+            "tcashw": 0,
+            "tbpw": 0,
+            "tbps": 0,
+            "tcashs": 0,
+            "tdeposit": 0,
+            "tpayout": 0
+        },
+        "APP_ANALYTICS": {
+            "downloads": 0
+        },
+        "_date": null
+    }
+}
